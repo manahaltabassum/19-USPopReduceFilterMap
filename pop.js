@@ -810,32 +810,36 @@ var info = [
 ]
 
 var data = JSON.parse(JSON.stringify(info));
-console.log(data);
+//console.log(data);
 
 //filter/reduce
 //return number of total people below/above certain age
 
-var ageDistribution = function (age){
-    var below = data.filter(function(x){return x["age"] < age});
-    var at = data.filter(function(x){return x["age"] == age});
-    var above = data.filter(function(x){return x["age"] > age});
-    var totBelow = below.reduce(function(x,y){
-	if (x['total'] != undefined){
-	    return x['total']+y['total'];
-	}
-	else{
-	    return x + y['total'];
-	}});
-    var totAt = at[0]['total']
-    var totAbove = above.reduce(function(x,y){
-	if (x['total'] != undefined){
-	    return x['total']+y['total'];
-	}
-	else{
-	    return x + y['total'];
-	}});
-    console.log("There are " + totBelow + " people below the age of " + age + ", " + totAt + " people at the age of " + age + ", and " + totAbove + " people above the age of " + age + ".");
+var belowAge = function (age){
+	numBelow = data.filter(function(x){return x["age"] < age}).map(function(x){return x["total"]});
+	totalBelow = numBelow.reduce(function(a,b) {return a+b});
+	return totalBelow;
 }
+
+//return average age of a female
+var averageFAge = function (){
+	ages = data.map(function(x){return x["females"]*x["age"]});
+	numberOfPeople = data.map(function(x){return x["females"]});
+	totalAges = ages.reduce(function(a,b){return a+b});
+	totalPeople = numberOfPeople.reduce(function(a,b){return a+b});
+	return Math.round(totalAges / totalPeople);
+}
+
+
+//return the median age of people overall
+
+
+document.getElementById("bAge").innerHTML = "Number of people with age below 15: " + belowAge(15);
+
+document.getElementById("aAge").innerHTML = "Average female age: " +averageFAge();
+//document.getElementById("mAge");
+console.log(belowAge(15));
+console.log(averageFAge());
 
 var totalPop = function(){
     var total = data.reduce(function(x,y){
@@ -849,6 +853,7 @@ var totalPop = function(){
     return total;
 }
 
+/**
 var avgAge = function(gender){
     var numerator = data.reduce(function(x,y){
 	if (x[gender] != undefined){
@@ -862,7 +867,7 @@ var avgAge = function(gender){
     console.log("The average age of " + gender + " is " + avg + ".");
 }
 
-    
+    **/
 
 
 

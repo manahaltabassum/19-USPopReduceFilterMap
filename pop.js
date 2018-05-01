@@ -831,16 +831,6 @@ var averageFAge = function (){
 }
 
 
-//return the median age of people overall
-
-
-document.getElementById("bAge").innerHTML = "Number of people with age below 15: " + belowAge(15);
-
-document.getElementById("aAge").innerHTML = "Average female age: " +averageFAge();
-//document.getElementById("mAge");
-console.log(belowAge(15));
-console.log(averageFAge());
-
 var totalPop = function(){
     var total = data.reduce(function(x,y){
 	if (x['total'] != undefined){
@@ -849,28 +839,16 @@ var totalPop = function(){
 	else{
 	    return x + y['total'];
 	}});
-    console.log("The total population is " + total + ".")
     return total;
 }
 
-/**
-var avgAge = function(gender){
-    var numerator = data.reduce(function(x,y){
-	if (x[gender] != undefined){
-	    return (x[gender]*x['age'])+(y[gender]*y['age']);
-	}
-	else{
-	    return x + (y[gender]*y['age']);
-	}})
-    var total = totalPop();
-    var avg = (numerator / total);
-    console.log("The average age of " + gender + " is " + avg + ".");
-}
+document.getElementById("bAge").innerHTML = "Number of people with age below 15: " + belowAge(15);
 
-    **/
+document.getElementById("aAge").innerHTML = "Average female age: " +averageFAge();
 
+document.getElementById("tAge").innerHTML = "Total population: " + totalPop();
 
-
-//return average age of a female
-
-//return the median age of people overall
+//document.getElementById("mAge");
+console.log(belowAge(15));
+console.log(averageFAge());
+console.log(totalPop());

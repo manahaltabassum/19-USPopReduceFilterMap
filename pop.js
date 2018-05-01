@@ -832,13 +832,8 @@ var averageFAge = function (){
 
 
 var totalPop = function(){
-    var total = data.reduce(function(x,y){
-	if (x['total'] != undefined){
-	    return x['total']+y['total'];
-	}
-	else{
-	    return x + y['total'];
-	}});
+    var vals = data.map(function(x){return x['total']});
+    var total = vals.reduce(function(x,y){return x+y})
     return total;
 }
 

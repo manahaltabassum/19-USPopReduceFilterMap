@@ -815,7 +815,7 @@ console.log(data);
 //filter/reduce
 //return number of total people below/above certain age
 
-var belowAge = function (age){
+var ageDistribution = function (age){
     var below = data.filter(function(x){return x["age"] < age});
     var at = data.filter(function(x){return x["age"] == age});
     var above = data.filter(function(x){return x["age"] > age});
@@ -836,6 +836,33 @@ var belowAge = function (age){
 	}});
     console.log("There are " + totBelow + " people below the age of " + age + ", " + totAt + " people at the age of " + age + ", and " + totAbove + " people above the age of " + age + ".");
 }
+
+var totalPop = function(){
+    var total = data.reduce(function(x,y){
+	if (x['total'] != undefined){
+	    return x['total']+y['total'];
+	}
+	else{
+	    return x + y['total'];
+	}});
+    console.log("The total population is " + total + ".")
+    return total;
+}
+
+var avgAge = function(gender){
+    var numerator = data.reduce(function(x,y){
+	if (x[gender] != undefined){
+	    return (x[gender]*x['age'])+(y[gender]*y['age']);
+	}
+	else{
+	    return x + (y[gender]*y['age']);
+	}})
+    var total = totalPop();
+    var avg = (numerator / total);
+    console.log("The average age of " + gender + " is " + avg + ".");
+}
+
+    
 
 
 

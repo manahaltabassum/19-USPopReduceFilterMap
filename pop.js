@@ -808,6 +808,7 @@ var info = [
 "total": 45600
 }
 ]
+
 var data = JSON.parse(JSON.stringify(info));
 console.log(data);
 
@@ -815,8 +816,28 @@ console.log(data);
 //return number of total people below/above certain age
 
 var belowAge = function (age){
-	console.log(data.filter(function(x){return x["age"] < age}));
+    var below = data.filter(function(x){return x["age"] < age});
+    var at = data.filter(function(x){return x["age"] == age});
+    var above = data.filter(function(x){return x["age"] > age});
+    var totBelow = below.reduce(function(x,y){
+	if (x['total'] != undefined){
+	    return x['total']+y['total'];
+	}
+	else{
+	    return x + y['total'];
+	}});
+    var totAt = at[0]['total']
+    var totAbove = above.reduce(function(x,y){
+	if (x['total'] != undefined){
+	    return x['total']+y['total'];
+	}
+	else{
+	    return x + y['total'];
+	}});
+    console.log("There are " + totBelow + " people below the age of " + age + ", " + totAt + " people at the age of " + age + ", and " + totAbove + " people above the age of " + age + ".");
 }
+
+
 
 //return average age of a female
 
